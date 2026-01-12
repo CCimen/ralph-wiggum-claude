@@ -1,5 +1,5 @@
 ---
-description: Initialize Ralph Loop for a task with interactive planning
+description: "Start or resume a Ralph Loop task. Creates .ralph/ state files if new, or resumes from existing state. Use this to begin any long-running task that needs context pollution protection."
 ---
 
 # Start Ralph Loop
@@ -19,7 +19,8 @@ Use the AskUserQuestion tool to clarify the task with these questions:
 1. **Task Definition**: "What task would you like to accomplish? Please describe it in detail."
 2. **Success Criteria**: "What specific outcomes will indicate the task is complete? (These become checkboxes)"
 3. **Test Command**: "Is there a test command to verify success? (e.g., 'npm test', 'pytest', or 'none')"
-4. **Constraints**: "Are there any specific constraints or requirements I should know about?"
+4. **Max Iterations**: "How many iterations (rotations) before auto-stopping? (Default: 50, or 'unlimited')"
+5. **Constraints**: "Are there any specific constraints or requirements I should know about?"
 
 ## Step 3: Create State Files
 
@@ -30,6 +31,7 @@ After gathering requirements, create the `.ralph/` directory with:
    ---
    task: [task description]
    test_command: "[test command or 'none']"
+   max_iterations: [number or 'unlimited']
    created: [ISO timestamp]
    iteration: 1
    status: in_progress
@@ -102,10 +104,14 @@ Start working on the first unchecked success criterion.
 
 When resuming from existing state:
 1. Read ralph_task.md to see overall progress
-2. Read progress.md to understand current phase and last action
-3. Read guardrails.md to know what to avoid
-4. Check errors.log for recent issues
-5. Continue from where progress.md indicates
+2. **Check iteration vs max_iterations** - If current iteration >= max_iterations, the loop is AUTO-COMPLETE:
+   - Set status to "auto_stopped" in ralph_task.md
+   - Output: "Ralph Loop auto-stopped after [N] iterations (max: [max_iterations]). Use /ralph-loop:start to continue with a higher limit, or /ralph-loop:cancel to clean up."
+   - DO NOT continue working
+3. Read progress.md to understand current phase and last action
+4. Read guardrails.md to know what to avoid
+5. Check errors.log for recent issues
+6. Continue from where progress.md indicates
 
 ## Ralph Philosophy Reminder
 

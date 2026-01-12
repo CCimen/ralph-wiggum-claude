@@ -1,5 +1,5 @@
 ---
-description: Explain Ralph Loop and available commands
+description: "Show Ralph Loop documentation: what it is, how it works, all available commands, state files, and when to use it vs regular sessions."
 ---
 
 # Ralph Loop Help
@@ -36,28 +36,34 @@ Ralph treats context pollution as a CERTAINTY, not an accident:
 
 COMMANDS
 --------
-/ralph-loop:start    Initialize or resume a Ralph task
-                     - Creates .ralph/ state files for new tasks
-                     - Resumes from saved state if .ralph/ exists
-                     - Uses interactive planning to define success criteria
+/ralph-loop:start    Start or resume a Ralph Loop task
+                     - NEW TASK: Creates .ralph/ files, asks for task definition,
+                       success criteria, test command, and max iterations (default: 50)
+                     - RESUME: Reads existing .ralph/ state and continues work
+                     - AUTO-STOPS when max iterations reached
 
-/ralph-loop:status   Show current progress
-                     - Displays task overview and completion status
-                     - Shows current phase and blockers
-                     - Lists active guardrails
+/ralph-loop:status   Show where you are in the loop
+                     - Task: what you're doing + which iteration you're on
+                     - Progress: X/Y checkboxes completed
+                     - Guardrails: learned constraints being enforced
+                     - Blockers: what's preventing progress
 
-/ralph-loop:rotate   Manually trigger rotation (fresh context)
-                     - Saves current progress
+/ralph-loop:rotate   Force a fresh context (manual rotation)
+                     - USE WHEN: AI is stuck, repeating itself, going in circles
+                     - Saves all progress to .ralph/ files
                      - Increments iteration counter
-                     - Instructs to start new session
+                     - Tells you to exit Claude and start a new session
+                     - New session picks up exactly where you left off
 
-/ralph-loop:sign     Add a guardrail manually
-                     Usage: /ralph-loop:sign <constraint text>
+/ralph-loop:sign     Add a rule to prevent a mistake from recurring
+                     Usage: /ralph-loop:sign <rule text>
                      Example: /ralph-loop:sign Always run tests before committing
+                     Example: /ralph-loop:sign Check for null before accessing .length
 
-/ralph-loop:cancel   Stop the loop
-                     - Option to keep or delete .ralph/ files
-                     - Preserves progress for later if kept
+/ralph-loop:cancel   Stop the Ralph Loop (the only way to end it manually)
+                     - "Keep files": stops loop, preserves .ralph/ for later
+                     - "Delete files": stops loop, removes all progress
+                     - Loop also auto-stops when max iterations reached
 
 /ralph-loop:help     Show this help message
 
@@ -68,6 +74,20 @@ guardrails.md   Learned constraints to prevent repeating mistakes
 progress.md     Current phase, completed work, what's next
 errors.log      Error history and rotation triggers
 activity.log    Tool usage tracking
+
+HOW THE LOOP STOPS
+------------------
+There are THREE ways a Ralph Loop ends:
+
+1. TASK COMPLETE: All success criteria checkboxes are marked [x]
+   - The natural end state - you're done!
+
+2. MAX ITERATIONS REACHED: Loop auto-stops at the limit (default: 50)
+   - Prevents runaway loops that never complete
+   - You can resume with /ralph-loop:start and set a higher limit
+
+3. MANUAL CANCEL: You run /ralph-loop:cancel
+   - Choose to keep .ralph/ files (resume later) or delete them
 
 AUTOMATIC ROTATION
 ------------------

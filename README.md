@@ -74,12 +74,12 @@ claude --plugin-dir /path/to/ralph-wiggum-claude
 
 | Command | Description |
 |---------|-------------|
-| `/ralph-loop:start` | Initialize or resume a Ralph task |
-| `/ralph-loop:status` | Show current progress |
-| `/ralph-loop:rotate` | Manually trigger rotation (fresh context) |
-| `/ralph-loop:sign <text>` | Add a guardrail manually |
-| `/ralph-loop:cancel` | Stop the loop |
-| `/ralph-loop:help` | Show help |
+| `/ralph-loop:start` | **Start or resume** a task. Asks for task definition, success criteria, and max iterations (default: 50). Resumes from `.ralph/` if it exists. |
+| `/ralph-loop:status` | **Check progress**: task overview, X/Y checkboxes done, current phase, blockers, and active guardrails. |
+| `/ralph-loop:rotate` | **Force fresh context** when stuck. Saves progress, tells you to start new Claude session. New session picks up where you left off. |
+| `/ralph-loop:sign <rule>` | **Add a guardrail** to prevent a mistake from recurring. Example: `/ralph-loop:sign Always run tests first` |
+| `/ralph-loop:cancel` | **Stop the loop**. Keep `.ralph/` to resume later, or delete it. Loop also auto-stops at max iterations. |
+| `/ralph-loop:help` | **Full documentation**: how it works, all commands, state files, when to use it. |
 
 ## State Files
 
@@ -94,6 +94,14 @@ Ralph persists state in a `.ralph/` directory in your project:
 | `activity.log` | Tool usage tracking |
 
 ## How Rotation Works
+
+### How the Loop Stops
+
+There are **three ways** a Ralph Loop ends:
+
+1. **Task Complete**: All success criteria checkboxes are marked `[x]` - you're done!
+2. **Max Iterations Reached**: Auto-stops at the limit (default: 50) to prevent runaway loops
+3. **Manual Cancel**: Run `/ralph-loop:cancel` to stop and optionally clean up
 
 ### Automatic Rotation
 

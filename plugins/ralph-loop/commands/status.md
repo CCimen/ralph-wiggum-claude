@@ -1,5 +1,5 @@
 ---
-description: Show current Ralph Loop progress and state
+description: "Display Ralph Loop progress: task overview, completion percentage, current phase, blockers, and active guardrails. Shows what's done, what's next, and any constraints learned."
 ---
 
 # Ralph Loop Status

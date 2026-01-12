@@ -1,10 +1,12 @@
 ---
-description: Stop the Ralph Loop and optionally clean up state
+description: "Stop the Ralph Loop. Choose to keep .ralph/ files (to resume later) or delete them completely. This is the ONLY way to end a Ralph Loop - loops don't auto-stop."
 ---
 
 # Cancel Ralph Loop
 
-The user wants to stop the Ralph Loop. Use AskUserQuestion to confirm their intent.
+The user wants to manually stop the Ralph Loop. This is the primary way to end a loop before task completion.
+
+**Note**: Loops can also auto-stop when max iterations (default: 50) is reached. This cancel command is for stopping earlier.
 
 ## Confirmation
 
@@ -12,8 +14,8 @@ Ask the user:
 "Are you sure you want to cancel the Ralph Loop?"
 
 Options:
-1. **"Yes, keep .ralph/ files"** - Stop the loop but preserve all state for later
-2. **"Yes, delete .ralph/ files"** - Stop and clean up completely (removes all progress)
+1. **"Yes, keep .ralph/ files"** - Stop the loop but preserve all state for later (can resume with /ralph-loop:start)
+2. **"Yes, delete .ralph/ files"** - Stop and clean up completely (removes all progress permanently)
 3. **"No, continue working"** - Cancel the cancellation, resume the task
 
 ## Actions Based on Choice

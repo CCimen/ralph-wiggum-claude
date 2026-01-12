@@ -1,6 +1,6 @@
 {
   "name": "ralph-wiggum-claude",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Ralph Loop - Context pollution prevention for Claude Code. Progress persists, failures evaporate.",
   "owner": {
     "name": "CCimen"
@@ -9,7 +9,7 @@
     {
       "name": "ralph-loop",
       "description": "Context pollution prevention through deliberate rotation. Implements the Ralph Wiggum technique with automatic error detection, guardrail extraction, and state persistence.",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "author": {
         "name": "CCimen"
       },

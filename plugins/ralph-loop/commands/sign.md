@@ -1,5 +1,5 @@
 ---
-description: Manually add a guardrail (learned constraint)
+description: "Add a guardrail (learned constraint) that prevents a mistake from happening again. Usage: /ralph-loop:sign <rule>. Example: /ralph-loop:sign Always run tests before committing"
 ---
 
 # Add Ralph Guardrail

@@ -1,5 +1,5 @@
 ---
-description: Manually trigger Ralph rotation (fresh context)
+description: "Force a context rotation when you notice the AI is stuck, repeating itself, or going in circles. Saves progress, then instructs you to start a new Claude session. The new session picks up where this one left off."
 ---
 
 # Manual Ralph Rotation
@@ -12,14 +12,25 @@ The user is manually triggering a rotation to get a fresh context. This is usefu
 
 ## Rotation Steps
 
-### 1. Update Iteration Counter
+### 1. Check Max Iterations First
 
-Read `.ralph/ralph_task.md` and increment the iteration number in the frontmatter:
+Read `.ralph/ralph_task.md` and check:
+- Current `iteration` value
+- `max_iterations` limit (default: 50)
+
+If `iteration + 1 >= max_iterations`:
+- Set status to "auto_stopped"
+- Output: "Ralph Loop reached max iterations ([N]/[max]). Loop auto-stopped. Use /ralph-loop:start to continue with a higher limit."
+- DO NOT proceed with rotation
+
+### 2. Update Iteration Counter
+
+Increment the iteration number in the frontmatter:
 ```yaml
 iteration: [current + 1]
 ```
 
-### 2. Save Current Progress
+### 3. Save Current Progress
 
 Update `.ralph/progress.md` with:
 - Current timestamp
@@ -27,14 +38,14 @@ Update `.ralph/progress.md` with:
 - Summary of what was accomplished this iteration
 - What should be tackled next iteration
 
-### 3. Log the Rotation
+### 4. Log the Rotation
 
 Append to `.ralph/errors.log`:
 ```
 [timestamp] ROTATION_TRIGGERED reason="manual" iteration=[N]
 ```
 
-### 4. Inform the User
+### 5. Inform the User
 
 Output this message:
 
