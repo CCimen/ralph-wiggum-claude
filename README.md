@@ -22,7 +22,17 @@ Ralph treats context pollution as a **certainty**, not an accident:
 
 ## Installation
 
-### Option 1: Local Development
+### Option 1: Install via Marketplace (Recommended)
+
+```bash
+# Add the marketplace
+/plugin marketplace add CCimen/ralph-wiggum-claude
+
+# Install the plugin
+/plugin install ralph-loop@CCimen-ralph-wiggum-claude
+```
+
+### Option 2: Local Development
 
 ```bash
 # Clone the repository
@@ -30,12 +40,6 @@ git clone https://github.com/CCimen/ralph-wiggum-claude.git
 
 # Use with --plugin-dir flag
 claude --plugin-dir /path/to/ralph-wiggum-claude
-```
-
-### Option 2: Add to Claude Code Plugins (when marketplace available)
-
-```bash
-/plugin install ralph-loop
 ```
 
 ## Quick Start
