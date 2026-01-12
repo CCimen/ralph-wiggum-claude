@@ -1,0 +1,10 @@
+{
+  "name": "ralph-loop",
+  "version": "1.0.0",
+  "description": "Context pollution prevention through deliberate rotation. Progress persists, failures evaporate.",
+  "author": {
+    "name": "CCimen"
+  },
+  "license": "MIT",
+  "keywords": ["ralph", "context", "loop", "productivity", "automation"]
+}
